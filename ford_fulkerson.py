@@ -18,14 +18,13 @@ def BFS(graph, s, t):
         node = path[-1]
         if node == t:
             return path
-        
-        for adjacent in graph.get_all_adjacent(node):
-            if adjacent in visited:
-                continue
-            visited.append(adjacent)
 
+        for adjacent in graph.get_all_adjacent(node):
             if graph.get_weight(node, adjacent) == 0:
                 continue
+            if adjacent in visited:
+                continue
+            visited.append(adjacent)            
             
             new_path = list(path)
             new_path.append(adjacent)
@@ -92,7 +91,7 @@ def ford_fulkerson(graph, s, t):
     # Por cada camino s-t calcular el augmenting path(uso BFS)
     path = BFS(residual_graph, s, t)
     while path:
-        max_flow += augment(graph, path)
+        max_flow += augment(residual_graph, path)
         path = BFS(residual_graph, s, t)
 
     minimum_cut = find_minimum_cut(graph, s, t)

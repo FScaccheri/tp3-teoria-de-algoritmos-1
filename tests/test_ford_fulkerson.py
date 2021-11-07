@@ -1,5 +1,5 @@
 from graph import Graph
-from ford_fulkerson import ford_fulkerson
+from ford_fulkerson import ford_fulkerson, print_graph
 
 
 def parse_graph_from_file(filename):
@@ -18,7 +18,6 @@ def parse_graph_from_file(filename):
             edge = graph_file.readline()
     except:
         print("Error parseando archivo de prueba")
-        print(filename)
 
     graph = Graph()
     for (u, v, w) in edges:
@@ -37,5 +36,16 @@ def test_case_1():
     expected_cut = [
         ('A', 'C'),
         ('F', 'E')
+    ]
+    expect_flow_and_cut(graph, s, t, expected_flow, expected_cut)
+
+def test_case_2():
+    [s, t, graph] = parse_graph_from_file("case_2.txt")
+    expected_flow = 18
+    expected_cut = [
+        ('S', 'A'),
+        ('C', 'B'),
+        ('C', 'D'),
+        ('C', 'F')
     ]
     expect_flow_and_cut(graph, s, t, expected_flow, expected_cut)
