@@ -2,6 +2,18 @@ import sys
 from graph import Graph
 from ford_fulkerson import ford_fulkerson, print_graph
 
+
+def print_results(graph, s, t):
+    [max_flow, min_cut] = ford_fulkerson(graph, s, t)
+    print(f"La cantidad maxima de pasajeros que pueden viajar "
+          f"desde la ciudad {s} hasta la ciudad {t} es {max_flow}")
+
+    print(f"Una combinacion de vuelos donde se puede colocar publicidad "
+          f"minimizando el costo es:")
+
+    for edge in min_cut:
+        print(f"\t- {edge}")
+
 def main(path):
     try:
         graph_file = open(path, "r")
@@ -24,9 +36,7 @@ def main(path):
     for (u, v, w) in edges:
         graph.add_edge(u, v, w)
 
-    max_flow = ford_fulkerson(graph, source_node, target_node)
-
-    print(f"Max flow is {max_flow}")
+    print_results(graph, source_node, target_node)
     return 0
 
 

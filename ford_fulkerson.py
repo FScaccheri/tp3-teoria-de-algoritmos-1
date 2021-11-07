@@ -55,6 +55,31 @@ def augment(graph, path):
         graph.add_edge(v, u, prev_weight + b)
     return b
 
+def find_minimum_cut(graph, s, t):
+    queue = []
+    visited = []
+    cut_edges = []
+
+    queue.append([s])
+    visited.append(s)
+
+    while queue:
+        path = queue.pop(0)
+        node = path[-1]
+        
+        for adjacent in graph.get_all_adjacent(node):
+            if adjacent in visited:
+                continue
+            visited.append(adjacent)
+
+            if graph.get_weight(node, adjacent) == 0:
+                cut_edges.append((node, adjacent))
+                continue
+            
+            new_path = list(path)
+            new_path.append(adjacent)
+            queue.append(new_path)
+    return cut_edges
 
 def ford_fulkerson(graph, s, t):
     max_flow = 0
@@ -65,9 +90,10 @@ def ford_fulkerson(graph, s, t):
         residual_graph.add_edge(edge[1], edge[0], 0)
 
     # Por cada camino s-t calcular el augmenting path(uso BFS)
-    path = BFS(graph, s, t)
+    path = BFS(residual_graph, s, t)
     while path:
         max_flow += augment(graph, path)
-        path = BFS(graph, s, t)
+        path = BFS(residual_graph, s, t)
 
-    return max_flow
+    minimum_cut = find_minimum_cut(graph, s, t)
+    return [max_flow, minimum_cut]
