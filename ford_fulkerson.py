@@ -15,7 +15,6 @@ def BFS(graph, s, t):
 
     while queue:
         path = queue.pop(0)
-        print(path)
         node = path[-1]
         if node == t:
             return path
@@ -61,21 +60,14 @@ def ford_fulkerson(graph, s, t):
     max_flow = 0
     residual_graph = Graph(graph.get_nodes(), graph._graph)
 
-    print("DENTRO DE FORD-FULKERSON")
-    print("=========================")
-
     # Inicializo los flujos de todos los ejes en 0
     for edge in residual_graph.get_edges():
         residual_graph.add_edge(edge[1], edge[0], 0)
 
-    print_graph(graph)
     # Por cada camino s-t calcular el augmenting path(uso BFS)
     path = BFS(graph, s, t)
     while path:
         max_flow += augment(graph, path)
         path = BFS(graph, s, t)
 
-
-    print("=========================")
-    print("FUERA DE FORD-FULKERSON")
     return max_flow
