@@ -50,3 +50,12 @@ def test_case_2():
         ('C', 'D')
     ]
     expect_flow_and_cut(graph, s, t, expected_flow, expected_cut)
+
+def test_case_3():
+    [s, t, graph] = parse_graph_from_file("case_3.txt")
+    expected_flow = 1000
+    expected_cut = [
+        ('S', 'A'),
+        ('S', 'B')
+    ]
+    expect_flow_and_cut(graph, s, t, expected_flow, expected_cut)
