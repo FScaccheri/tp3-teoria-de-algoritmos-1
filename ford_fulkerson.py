@@ -1,11 +1,6 @@
 import math
 from graph import Graph
 
-def print_graph(graph):
-    print(graph.get_nodes())
-    print(graph.get_edges())
-    print(graph._graph)
-
 def BFS(graph, s, t):
     queue = []
     visited = []
@@ -82,7 +77,8 @@ def find_minimum_cut(graph, s, t):
 
 def ford_fulkerson(graph, s, t):
     max_flow = 0
-    residual_graph = Graph(graph.get_nodes(), graph._graph)
+    residual_graph = Graph()
+    graph.copy_into(residual_graph)
 
     # Inicializo los flujos de todos los ejes en 0
     for edge in residual_graph.get_edges():

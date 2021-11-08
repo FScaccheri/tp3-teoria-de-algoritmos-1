@@ -1,6 +1,6 @@
 import sys
 from graph import Graph
-from ford_fulkerson import ford_fulkerson, print_graph
+from ford_fulkerson import ford_fulkerson
 
 
 def print_results(graph, s, t):
@@ -31,6 +31,7 @@ def main(path):
         print("The content of the file is wrong")
         return 1
 
+    graph_file.close()
     graph = Graph()
 
     for (u, v, w) in edges:

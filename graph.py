@@ -2,9 +2,9 @@ class Graph:
     """
     Grafo dirigido con pesos
     """
-    def __init__(self, nodes=set(), graph={}):
-        self._nodes = nodes
-        self._graph = graph
+    def __init__(self):
+        self._nodes = set()
+        self._graph = {}
 
     def add_edge(self, u, v, w):
         """
@@ -39,3 +39,7 @@ class Graph:
         Devuelve todos los nodos adyacentes a {u}
         """
         return self._graph.get(u, {}).keys()
+
+    def copy_into(self, new_graph):
+        new_graph._nodes = self._nodes.copy()
+        new_graph._graph = self._graph.copy()
